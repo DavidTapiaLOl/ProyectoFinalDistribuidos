@@ -1,0 +1,45 @@
+<div class="register-wrapper">
+  <div class="register-card">
+    
+    <div class="register-header">
+      <h2>📝 Crear Cuenta</h2>
+      <p class="subtitle">Únete al sistema distribuido</p>
+    </div>
+
+    <form (ngSubmit)="registrar()">
+      
+      <div class="form-row">
+        <div class="form-group half-width">
+          <label>Nombre</label>
+          <input [(ngModel)]="user.nombre" name="nombre" placeholder="Tu nombre" class="form-control" required>
+        </div>
+        <div class="form-group half-width">
+          <label>Apellidos</label>
+          <input [(ngModel)]="user.apellidos" name="apellidos" placeholder="Tus apellidos" class="form-control" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input [(ngModel)]="user.email" name="email" type="email" placeholder="ejemplo@correo.com" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label>Teléfono <small>(Opcional)</small></label>
+        <input [(ngModel)]="user.telefono" name="telefono" placeholder="10 dígitos" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input [(ngModel)]="user.password" name="password" type="password" placeholder="Crea una contraseña segura" class="form-control" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Registrarme</button>
+    </form>
+    
+    <div class="register-footer">
+      <p>¿Ya tienes una cuenta? <a routerLink="/login">Inicia Sesión aquí</a></p>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,145 @@
+<div class="container mt-4">
+  <div class="container mt-4">
+  <div class="header-section mb-4">
+    <h2>Inventario de Equipos</h2>
+    
+    <div class="actions-group">
+      <button class="btn btn-info me-2" routerLink="/profile">
+        👤 Mi Perfil
+      </button>
+
+      <button class="btn btn-danger me-2" (click)="logout()">
+        🚪 Salir
+      </button>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+      </div>
+</div>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Inventario de Equipos</h2>
+    <button class="btn btn-success" (click)="openModal()">
+      + Agregar Computadora
+    </button>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered shadow-sm">
+      <thead class="table-dark">
+        <tr>
+          <th>Equipo</th>
+          <th>Serie</th>
+          <th>Especificaciones</th>
+          <th>Estado</th>
+          <th>Creado Por</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pc of computers">
+          <td>
+            <strong>{{ pc.marca }} {{ pc.modelo }}</strong><br>
+            <small class="text-muted">{{ pc.tipo_equipo }}</small>
+          </td>
+          <td>{{ pc.numero_serie }}</td>
+          <td>{{ pc.procesador }}, {{ pc.ram_gb }}GB RAM, {{ pc.almacenamiento_gb }}GB</td>
+          <td>
+            <span class="badge" 
+                  [ngClass]="{
+                    'bg-success': pc.estado === 'Nuevo',
+                    'bg-warning': pc.estado === 'Asignado',
+                    'bg-danger': pc.estado === 'Dañado'
+                  }">
+              {{ pc.estado }}
+            </span>
+          </td>
+          <td>
+            {{ getCreatorName(pc) }}
+          </td>
+          <td class="text-center">
+            <ng-container *ngIf="pc.usuario_registro === currentUser.id; else noPermiso">
+              <button class="btn btn-sm btn-primary me-2" (click)="openModal(pc)">
+                Editar
+              </button>
+              <button class="btn btn-sm btn-danger" (click)="deleteComputer(pc.id)">
+                Eliminar
+              </button>
+            </ng-container>
+            <ng-template #noPermiso>
+              <small class="text-muted">Solo lectura</small>
+            </ng-template>
+          </td>
+        </tr>
+        <tr *ngIf="computers.length === 0">
+          <td colspan="6" class="text-center py-4">No hay computadoras registradas.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="isModalOpen">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4>{{ isEditing ? 'Editar' : 'Registrar' }} Computadora</h4>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+    
+    <div class="modal-body">
+      <form (ngSubmit)="saveComputer()">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label>Tipo</label>
+            <select class="form-control" [(ngModel)]="currentComp.tipo_equipo" name="tipo">
+              <option value="Laptop">Laptop</option>
+              <option value="Desktop">Desktop</option>
+              <option value="Servidor">Servidor</option>
+            </select>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Marca</label>
+            <input type="text" class="form-control" [(ngModel)]="currentComp.marca" name="marca" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>Modelo</label>
+            <input type="text" class="form-control" [(ngModel)]="currentComp.modelo" name="modelo" required>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label>No. Serie</label>
+            <input type="text" class="form-control" [(ngModel)]="currentComp.numero_serie" name="serie" required>
+          </div>
+          
+          <div class="col-md-12 mb-3">
+            <label>Procesador</label>
+            <input type="text" class="form-control" [(ngModel)]="currentComp.procesador" name="proc">
+          </div>
+          
+          <div class="col-md-4 mb-3">
+            <label>RAM (GB)</label>
+            <input type="number" class="form-control" [(ngModel)]="currentComp.ram_gb" name="ram">
+          </div>
+          
+          <div class="col-md-4 mb-3">
+            <label>Disco (GB)</label>
+            <input type="number" class="form-control" [(ngModel)]="currentComp.almacenamiento_gb" name="storage">
+          </div>
+
+           <div class="col-md-4 mb-3">
+            <label>Estado</label>
+             <select class="form-control" [(ngModel)]="currentComp.estado" name="estado">
+              <option value="Nuevo">Nuevo</option>
+              <option value="Asignado">Asignado</option>
+              <option value="Dañado">Dañado</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="modal-footer mt-3">
+          <button type="button" class="btn btn-secondary me-2" (click)="closeModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary">{{ isEditing ? 'Guardar Cambios' : 'Registrar' }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

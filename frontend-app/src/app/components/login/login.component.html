@@ -1,0 +1,41 @@
+<div class="login-wrapper">
+  <div class="login-card">
+    
+    <div class="login-header">
+      <h2>🔐 Iniciar Sesión</h2>
+      <p class="subtitle">Bienvenido al Sistema Distribuido</p>
+    </div>
+
+    <form (ngSubmit)="login()">
+      <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input 
+          [(ngModel)]="credenciales.email" 
+          name="email" 
+          type="email" 
+          placeholder="ejemplo@correo.com" 
+          class="form-control" 
+          required>
+      </div>
+
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input 
+          [(ngModel)]="credenciales.password" 
+          name="password" 
+          type="password" 
+          placeholder="••••••••" 
+          class="form-control" 
+          required>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+    </form>
+    
+    <div class="login-footer">
+      <p class="mb-1"><a routerLink="/register">¿No tienes cuenta? Regístrate</a></p>
+      <p><a routerLink="/recover" class="forgot-link">Olvidé mi contraseña</a></p>
+    </div>
+
+  </div>
+</div>
