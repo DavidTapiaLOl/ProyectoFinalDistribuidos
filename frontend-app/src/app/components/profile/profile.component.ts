@@ -13,7 +13,6 @@ import { AuthService } from '../../services/auth';
 })
 export class ProfileComponent {
 
-  // SOLUCIÓN: Usamos inject() aquí para evitar el error del DecoratorFactory
   private auth = inject(AuthService);
   private router = inject(Router);
 
@@ -21,7 +20,7 @@ export class ProfileComponent {
   password = ''; 
 
   constructor() {
-    // La lógica de inicialización se mantiene igual
+
     if (typeof window !== 'undefined' && window.localStorage) {
       const userData = localStorage.getItem('user_data');
       if (userData) {
@@ -44,7 +43,7 @@ export class ProfileComponent {
 
       await this.auth.updateProfile(updateData);
       
-      // Actualizamos localStorage solo si estamos en el navegador
+
       if (typeof window !== 'undefined') {
         localStorage.setItem('user_data', JSON.stringify(this.user));
       }

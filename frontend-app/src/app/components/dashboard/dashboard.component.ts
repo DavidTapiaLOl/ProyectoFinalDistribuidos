@@ -19,12 +19,12 @@ export class DashboardComponent implements OnInit {
 
   constructor() {}
 
-  computers: Computer[] = []; // Asegúrate de agregar usuario_nombre a la interfaz Computer si da error
+  computers: Computer[] = []; 
   currentUser: any = {};
   isLoading = true;
   isModalOpen = false;
   isEditing = false;
-  currentComp: any = this.getEmptyComputer(); // Usamos any temporalmente para evitar error de tipo con usuario_nombre
+  currentComp: any = this.getEmptyComputer(); 
 
   ngOnInit() {
     this.loadUser();
@@ -43,13 +43,13 @@ export class DashboardComponent implements OnInit {
   }
 
  loadComputers() {
-    this.isLoading = true; // Activamos spinner antes de pedir
+    this.isLoading = true; 
     
     this.computerService.getComputers().subscribe({
       next: (data) => {
         this.computers = data;
-        this.isLoading = false; // Desactivamos spinner
-        this.cd.detectChanges(); // <--- 4. OBLIGAMOS A ANGULAR A PINTAR LA TABLA
+        this.isLoading = false; 
+        this.cd.detectChanges();
       },
       error: (err) => {
         console.error('Error cargando', err);
@@ -70,28 +70,23 @@ export class DashboardComponent implements OnInit {
 
   closeModal() {
     this.isModalOpen = false;
-    // Forzamos la limpieza del formulario para evitar residuos
     this.currentComp = this.getEmptyComputer();
   }
 
   saveComputer() {
-    console.log('1. Intentando guardar...'); // DEBUG
-
-    // Validación de seguridad: Si no hay usuario, usamos un fallback
     const userId = this.currentUser?.id || 'anonimo';
     const userName = this.currentUser?.nombre || this.currentUser?.email || 'Usuario Sin Nombre';
 
-    // 1. Preparar datos
+
     this.currentComp.usuario_registro = userId;
-    
-    // Solo asignamos nombre si no existe (para no sobrescribir al editar si no quieres)
+  
     if (!this.currentComp.usuario_nombre) {
         this.currentComp.usuario_nombre = userName;
     }
 
-    console.log('2. Datos a enviar:', this.currentComp); // DEBUG
+    console.log('2. Datos a enviar:', this.currentComp); 
 
-    // 2. Definir si es crear o actualizar
+
     let requestObservable;
 
     if (this.isEditing) {
@@ -100,7 +95,7 @@ export class DashboardComponent implements OnInit {
       requestObservable = this.computerService.createComputer(this.currentComp);
     }
 
-    // 3. Ejecutar la petición
+
     requestObservable.subscribe({
       next: (response) => {
         console.log('3. ÉXITO - Respuesta del servidor:', response); 
@@ -115,10 +110,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  // Función auxiliar para manejar el éxito y CERRAR EL MODAL
+ 
   handleSuccess(msg: string) {
-    this.closeModal(); // <--- CIERRE AUTOMÁTICO
-    this.loadComputers(); // Recargamos la tabla
+    this.closeModal(); 
+    this.loadComputers(); 
     alert(msg);
   }
 
@@ -140,23 +135,21 @@ export class DashboardComponent implements OnInit {
     };
   }
 
-  // Lógica visual para mostrar el nombre
- // Helper visual para mostrar el nombre
+
  getCreatorName(pc: any): string {
-    // Protección contra nulos
+  
     if (!pc) return '';
 
-    // 1. Si soy yo
+ 
     if (pc.usuario_registro === this.currentUser.id) {
       return `Tú (${this.currentUser.nombre})`;
     }
 
-    // 2. Si viene el nombre desde la BD (Aquí es donde fallaba antes)
     if (pc.usuario_nombre) {
       return pc.usuario_nombre;
     }
 
-    // 3. Fallback al ID si no hay nombre
+    
     if (pc.usuario_registro) {
       return `ID: ${pc.usuario_registro.substring(0, 8)}...`;
     }

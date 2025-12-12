@@ -16,9 +16,9 @@ export class RecoverPasswordComponent {
   email = '';
   otp = '';
   newPassword = '';
-  loading = false; // Para bloquear botones
+  loading = false; 
 
-  // 2. Inyectar NgZone en el constructor
+  
   constructor(
     private auth: AuthService, 
     private router: Router,
@@ -33,9 +33,9 @@ export class RecoverPasswordComponent {
       await this.auth.solicitarOtp(this.email);
       alert('Código enviado.');
       
-      this.step = 2;        // Cambiamos el paso
-      this.loading = false; // Desbloqueamos
-      this.cd.detectChanges(); // <--- 3. ¡FUERZA LA ACTUALIZACIÓN YA!
+      this.step = 2;        
+      this.loading = false; 
+      this.cd.detectChanges(); 
 
     } catch (error) {
       console.error(error);
@@ -51,9 +51,9 @@ export class RecoverPasswordComponent {
     try {
       await this.auth.verificarOtp(this.email, this.otp);
       
-      this.step = 3;        // Cambiamos el paso
-      this.loading = false; // Desbloqueamos
-      this.cd.detectChanges(); // <--- 3. ¡FUERZA LA ACTUALIZACIÓN YA!
+      this.step = 3;        
+      this.loading = false; 
+      this.cd.detectChanges(); 
 
     } catch (error) {
       alert('Código incorrecto o expirado.');
@@ -70,7 +70,6 @@ export class RecoverPasswordComponent {
       alert('¡Contraseña actualizada!');
       
       this.router.navigate(['/login']);
-      // Aquí no hace falta detectChanges porque al navegar cambia de página
       
     } catch (error) {
       alert('Error al actualizar contraseña.');

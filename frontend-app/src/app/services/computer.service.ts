@@ -23,7 +23,6 @@ export interface Computer {
 })
 export class ComputerService {
   private http = inject(HttpClient);
-  // URL de tu contenedor PHP expuesto en el puerto 8000
   private apiUrl = 'http://localhost:8000/index.php'; 
 
   getComputers(): Observable<Computer[]> {

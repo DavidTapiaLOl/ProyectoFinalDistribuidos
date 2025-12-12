@@ -1,8 +1,5 @@
-/* =========================================
-   1. VARIABLES Y RESET BÁSICO
-   ========================================= */
+
 :host {
-  /* Paleta de colores similar a Bootstrap */
   --primary: #007bff;
   --secondary: #6c757d;
   --success: #28a745;
@@ -14,7 +11,7 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-/* Contenedor principal */
+
 .container {
   max-width: 1100px;
   margin: 0 auto;
@@ -22,9 +19,7 @@
   font-family: sans-serif;
 }
 
-/* =========================================
-   2. UTILIDADES DE LAYOUT (Reemplazando Bootstrap)
-   ========================================= */
+
 .d-flex { display: flex; }
 .justify-content-between { justify-content: space-between; }
 .align-items-center { align-items: center; }
@@ -35,11 +30,11 @@
 .text-center { text-align: center; }
 .text-muted { color: #6c757d; font-size: 0.85em; }
 
-/* Sistema de Grilla (Simulación de row/col) */
+
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -10px; /* Margen negativo para compensar padding */
+  margin: 0 -10px;
 }
 
 [class*="col-"] {
@@ -47,14 +42,11 @@
   box-sizing: border-box;
 }
 
-/* Definición de anchos de columnas */
 .col-md-12 { width: 100%; }
 .col-md-6  { width: 50%; }
 .col-md-4  { width: 33.333%; }
 
-/* =========================================
-   3. TABLA DE DATOS
-   ========================================= */
+
 .table-responsive {
   overflow-x: auto;
 }
@@ -84,9 +76,7 @@
   background-color: rgba(0,0,0,0.02);
 }
 
-/* =========================================
-   4. BOTONES (.btn)
-   ========================================= */
+
 .btn {
   display: inline-block;
   font-weight: 500;
@@ -107,7 +97,7 @@
   font-size: 0.875rem;
 }
 
-/* Variantes de color */
+
 .btn-success { background-color: var(--success); color: white; }
 .btn-success:hover { background-color: #218838; }
 
@@ -120,9 +110,7 @@
 .btn-secondary { background-color: var(--secondary); color: white; }
 .btn-secondary:hover { background-color: #5a6268; }
 
-/* =========================================
-   5. FORMULARIOS
-   ========================================= */
+
 label {
   display: inline-block;
   margin-bottom: 0.5rem;
@@ -140,7 +128,7 @@ label {
   background-color: #fff;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
-  box-sizing: border-box; /* Importante para que no se salga del contenedor */
+  box-sizing: border-box; 
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -150,21 +138,19 @@ label {
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-/* =========================================
-   6. MODAL (VENTANA EMERGENTE)
-   ========================================= */
+
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Fondo oscuro transparente */
+  background: rgba(0, 0, 0, 0.5); 
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1050;
-  backdrop-filter: blur(3px); /* Efecto borroso bonito */
+  backdrop-filter: blur(3px); 
 }
 
 .modal-content {
@@ -172,7 +158,7 @@ label {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 600px; /* Ancho máximo del modal */
+  max-width: 600px; 
   background-color: #fff;
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
@@ -224,9 +210,7 @@ label {
 }
 .close-btn:hover { opacity: 0.8; }
 
-/* =========================================
-   7. BADGES (ESTADO)
-   ========================================= */
+
 .badge {
   display: inline-block;
   padding: 0.35em 0.65em;

@@ -8,7 +8,6 @@ import { AuthService } from '../../services/auth';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule], 
-  // FÍJATE AQUÍ: Deben coincidir con los nuevos nombres de tus archivos
   templateUrl: './login.component.html', 
   styleUrl: './login.component.css',     
 })
@@ -21,15 +20,13 @@ export class LoginComponent {
     try {
       const res: any = await this.auth.login(this.credenciales);
       const token = res.data ? res.data.token : res.token;
-      // NUEVO: Obtenemos también el objeto usuario
       const user = res.data ? res.data.user : res.user;
 
       localStorage.setItem('token', token);
-      // NUEVO: Guardamos los datos del usuario para usarlos en el perfil
       localStorage.setItem('user_data', JSON.stringify(user)); 
 
       alert('¡Login exitoso!');
-      this.router.navigate(['/dashboard']); // Redirigir al perfil
+      this.router.navigate(['/dashboard']);
     } catch (error) {
       alert('Credenciales incorrectas');
     }

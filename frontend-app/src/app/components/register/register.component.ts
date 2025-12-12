@@ -8,8 +8,8 @@ import { AuthService } from '../../services/auth';
   selector: 'app-register',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
-  templateUrl: './register.component.html', // <--- Actualizado
-  styleUrl: './register.component.css'      // <--- Actualizado
+  templateUrl: './register.component.html', 
+  styleUrl: './register.component.css'      
 })
 export class RegisterComponent {
   user = {

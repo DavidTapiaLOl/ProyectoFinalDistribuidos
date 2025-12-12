@@ -5,7 +5,7 @@ import axios from 'axios';
   providedIn: 'root'
 })
 export class AuthService {
-  // URLs de tus contenedores Docker (Mapeados a localhost)
+  // URLs de los contenedores Docker
   private nodeApi = 'http://localhost:3000/api';
   private netApi = 'http://localhost:5000/api/email';
 

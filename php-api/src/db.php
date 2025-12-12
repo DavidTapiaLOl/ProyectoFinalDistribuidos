@@ -1,7 +1,7 @@
 <?php
-// Archivo: php-api/src/db.php
+
 function getDB() {
-    // En Docker, el host es el NOMBRE DEL SERVICIO definido en docker-compose
+
     $host = 'db-postgres'; 
     $db = 'inventario_db';
     $user = 'admin';
@@ -13,7 +13,7 @@ function getDB() {
         $pdo = new PDO($dsn, $user, $pass, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
         return $pdo;
     } catch (PDOException $e) {
-        // Si falla, imprime el error (útil para depurar)
+       
         die("Error de conexión a Postgres: " . $e->getMessage());
     }
 }

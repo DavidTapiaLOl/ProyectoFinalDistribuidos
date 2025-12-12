@@ -1,26 +1,22 @@
-/* =========================================
-   ESTILOS DEL PERFIL (MODERNO Y LIMPIO)
-   ========================================= */
 
-/* Fondo general y centrado */
 .profile-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh; /* Ocupa casi toda la altura */
+  min-height: 80vh; 
   padding: 20px;
-  background-color: #f4f6f9; /* Fondo gris muy suave */
+  background-color: #f4f6f9; 
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-/* La Tarjeta Blanca */
+
 .profile-card {
   background: white;
   width: 100%;
-  max-width: 450px; /* Ancho máximo elegante */
+  max-width: 450px; 
   padding: 40px;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* Sombra suave */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
   animation: fadeIn 0.5s ease-out;
 }
 
@@ -29,7 +25,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Encabezado */
+
 .profile-header {
   text-align: center;
   margin-bottom: 30px;
@@ -47,7 +43,7 @@
   margin-top: 5px;
 }
 
-/* Formularios */
+
 .form-group {
   margin-bottom: 20px;
 }
@@ -73,7 +69,7 @@ label small {
   border-radius: 6px;
   background-color: #fafafa;
   transition: all 0.3s ease;
-  box-sizing: border-box; /* Vital para que no se salga del ancho */
+  box-sizing: border-box; 
 }
 
 .form-control:focus {
@@ -83,14 +79,13 @@ label small {
   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
-/* Separador */
+
 .divider {
   border: 0;
   border-top: 1px solid #eee;
   margin: 25px 0;
 }
 
-/* Botones */
 .btn {
   border: none;
   padding: 12px;
@@ -116,14 +111,14 @@ label small {
 }
 
 .btn-danger {
-  background-color: #dc3545; /* Rojo Bootstrap */
+  background-color: #dc3545;
   color: white;
 }
 .btn-danger:hover {
   background-color: #b02a37;
 }
 
-/* Link de Volver */
+
 .actions-footer {
   margin-top: 20px;
   text-align: center;

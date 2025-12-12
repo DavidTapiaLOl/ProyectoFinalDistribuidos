@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// Configuración de conexión
+
 const dbConfig = {
     host: process.env.DB_HOST || 'db',
     user: process.env.DB_USER || 'root',
@@ -18,7 +18,7 @@ const dbConfig = {
     database: process.env.DB_NAME || 'distribuida_db'
 };
 
-// Reintentar conexión a BD
+
 let connection;
 function handleDisconnect() {
     connection = mysql.createConnection(dbConfig);
@@ -37,18 +37,16 @@ function handleDisconnect() {
 }
 handleDisconnect();
 
-// --- AQUÍ ESTABA EL CAMBIO CRÍTICO ---
-// Asegúrate de que apunte al puerto 8080 y el nombre del host sea 'net-api'
-// (o como se llame el servicio en tu docker-compose bajo 'services:')
+
 const NET_SERVICE_URL = 'http://net-api:8080/api/email'; 
 
-// RUTAS
 
-// 1. Registro
+
+
 app.post('/api/register', async (req, res) => {
     const { nombre, apellidos, email, password, telefono } = req.body;
     
-    // Validación básica para evitar errores vacíos
+    
     if(!email || !password) return res.status(400).json({error: "Faltan datos"});
 
     try {
@@ -58,18 +56,16 @@ app.post('/api/register', async (req, res) => {
     
         const sql = 'INSERT INTO usuarios (id, nombre, apellidos, email, password, telefono) VALUES (?, ?, ?, ?, ?, ?)';
         
-        // Usamos connection.query directamente
+        
         connection.query(sql, [id, nombre, apellidos, email, hash, telefono], (err, result) => {
             if (err) {
-                console.error("Error MySQL:", err); // Ver error en consola Docker
+                console.error("Error MySQL:", err); 
                 // Si el correo ya existe, MySQL devuelve código ER_DUP_ENTRY
                 if(err.code === 'ER_DUP_ENTRY') return res.status(400).json({ error: "El correo ya está registrado" });
                 return res.status(500).json({ error: err.message });
             }
             
-            // Llamada asíncrona al servicio .NET
-            // IMPORTANTE: Uso de comillas invertidas ` ` (backticks) no necesarias aquí porque concatenamos variable, 
-            // pero axios espera url string.
+            
             console.log("Intentando contactar a .NET en:", `${NET_SERVICE_URL}/bienvenida`);
             
             axios.post(`${NET_SERVICE_URL}/bienvenida`, { email, nombre })
@@ -84,7 +80,7 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-// 2. Login
+
 app.post('/api/login', (req, res) => {
     const { email, password } = req.body;
     connection.query('SELECT * FROM usuarios WHERE email = ?', [email], async (err, results) => {
@@ -103,7 +99,7 @@ app.post('/api/login', (req, res) => {
     });
 });
 
-// 3. Reset Password
+
 app.post('/api/reset-password', async (req, res) => {
     const { email, newPassword } = req.body;
     const salt = await bcrypt.genSalt(10);
@@ -115,11 +111,11 @@ app.post('/api/reset-password', async (req, res) => {
     });
 });
 
-// 4. Actualizar Perfil
+
 app.post('/api/update-profile', async (req, res) => {
     const { id, nombre, apellidos, telefono, password } = req.body;
     
-    // Preparar consulta dinámica (si password viene vacío, no lo actualizamos)
+    
     let sql = 'UPDATE usuarios SET nombre=?, apellidos=?, telefono=? WHERE id=?';
     let params = [nombre, apellidos, telefono, id];
 
@@ -129,8 +125,7 @@ app.post('/api/update-profile', async (req, res) => {
         sql = 'UPDATE usuarios SET nombre=?, apellidos=?, telefono=?, password=? WHERE id=?';
         params = [nombre, apellidos, telefono, hash, id];
         
-        // REQUISITO EXTRA: Si cambia pass, notificar vía .NET (Opcional según tu profe)
-        // axios.post(`${NET_SERVICE_URL}/notificacion-cambio-pass`, { email: ... })
+        
     }
 
     connection.query(sql, params, (err, result) => {
